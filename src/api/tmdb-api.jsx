@@ -87,4 +87,22 @@ export const getMovie = (args) => {
     .catch((error) => {
       throw error
    });
-  };
+
+  }
+  
+  export const getTrendingThisWeek = () => {
+  return fetch(
+    `https://api.themoviedb.org/3/trending/movie/week?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+  )
+    .then((res) => {
+      if (!res.ok) {
+        return res.json().then((e) => {
+          throw new Error(e.status_message || "TMDB request failed");
+        });
+      }
+      return res.json();
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
