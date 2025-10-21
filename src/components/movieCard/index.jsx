@@ -20,6 +20,15 @@ export default function MovieCard({ movie, action }) {
 
   const { favorites, addToFavorites } = useContext(MoviesContext);
 
+  const formattedDate = movie.release_date
+  ? new Date(movie.release_date).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",  
+      year: "2-digit", 
+    })
+  : "—";
+
+
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
   } else {
@@ -30,7 +39,7 @@ export default function MovieCard({ movie, action }) {
     e.preventDefault();
     addToFavorites(movie);
   };
-
+ 
 
   return (
     <Card>
@@ -61,9 +70,8 @@ export default function MovieCard({ movie, action }) {
         <Grid container>
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
-              <CalendarIcon fontSize="small" />
-              {movie.release_date}
-            </Typography>
+              <CalendarIcon fontSize="small" /> {formattedDate}
+          </Typography>
           </Grid>
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
